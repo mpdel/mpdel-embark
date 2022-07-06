@@ -1,0 +1,26 @@
+* mpdel-embark
+  #+BEGIN_HTML
+      <p>
+        <a href="https://stable.melpa.org/#/mpdel-embark">
+          <img alt="MELPA Stable" src="https://stable.melpa.org/packages/mpdel-embark-badge.svg"/>
+        </a>
+
+        <a href="https://melpa.org/#/mpdel-embark">
+          <img alt="MELPA" src="https://melpa.org/packages/mpdel-embark-badge.svg"/>
+        </a>
+
+        <a href="https://github.com/mpdel/mpdel-embark/actions">
+          <img alt="pipeline status" src="https://github.com/mpdel/mpdel-embark/actions/workflows/test.yml/badge.svg" />
+        </a>
+      </p>
+  #+END_HTML
+
+** Summary
+
+** Installing
+
+** Using
+
+** License
+
+See [[file:COPYING][COPYING]]. Copyright (c) 2022 [[mailto:damien@cassou.me][Damien Cassou]].
