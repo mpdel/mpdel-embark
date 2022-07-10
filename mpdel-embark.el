@@ -76,8 +76,10 @@ type of the listed candidates, e.g., `libmpdel-song'.")
   "Return the category for children of ALBUM."
   'libmpdel-song)
 
-(defun mpdel-embark--get-target-from-string (type target-name)
-  (cons type (get-text-property 0 'libmpdel-entity target-name)))
+(defun mpdel-embark--get-target-from-string (type target)
+  (cons type (if (stringp target)
+                 (get-text-property 0 'libmpdel-entity target)
+               target)))
 
 (defvar mpdel-embark-map
   (let ((map (make-sparse-keymap)))
@@ -90,13 +92,12 @@ type of the listed candidates, e.g., `libmpdel-song'.")
     map)
   "Embark keymap for mpdel.")
 
-(cl-defun mpdel-embark-fake-selected-entities (&key action target type &allow-other-keys)
-  (when-let (((symbolp action)))
-    (cl-labels ((fake-selected-entities
-                 ()
-                 (advice-remove 'mpdel-core-selected-entities #'fake-selected-entities)
-                 (list target)))
-      (advice-add 'mpdel-core-selected-entities :override #'fake-selected-entities))))
+(cl-defun mpdel-embark-fake-selected-entities (&key target &allow-other-keys)
+  (cl-labels ((fake-selected-entities
+               ()
+               (advice-remove 'mpdel-core-selected-entities #'fake-selected-entities)
+               (list target)))
+    (advice-add 'mpdel-core-selected-entities :override #'fake-selected-entities)))
 
 (defun mpdel-embark--tablist-entity-at-point ()
   "Target the MPDel entity on the line in a tablist buffer."
@@ -104,7 +105,7 @@ type of the listed candidates, e.g., `libmpdel-song'.")
     (when-let ((entity (get-text-property (point) 'tabulated-list-id)))
       `(
         ,(aref entity 0) ;; type of entity
-        ,(propertize (libmpdel-entity-name entity) 'libmpdel-entity entity)
+        ,entity
         ,(line-beginning-position) . ,(line-end-position)))))
 
 (defun mpdel-embark-setup ()
