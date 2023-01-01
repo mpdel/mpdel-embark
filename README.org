@@ -17,10 +17,43 @@
 
 ** Summary
 
+This Emacs package binds together [[https://github.com/mpdel/mpdel][mpdel]] (a [[https://www.musicpd.org/][Music Player Daemon]] client)
+with the [[https://github.com/oantolin/embark/][embark]] library.
+
+When mpdel-embark is installed, you can use ~M-x mpdel-embark-list~
+(bound to ~i~ in MPDel keymaps) to start a completion interface for
+all your music library. This interface shows a list of all artists in
+the MPD database. You can add all songs from any artist by selecting
+the artist and using ~embark-act~. You can also browse the artist's
+albums by typing ~RET~. Add a complete album to the current playlist
+by using ~embark-act~ or go to the album's songs by typing
+~RET~. Using ~embark-act~ on a song will add it to the current
+playlist while ~RET~ shows information about the song.
+
+If you are an [[https://github.com/abo-abo/swiper][Ivy/Counsel]] user, you might prefer [[https://github.com/mpdel/ivy-mpdel][ivy-mpdel]] over
+this package.
+
 ** Installing
 
-** Using
+You need to change your configuration file (e.g.,
+=~/.emacs.d/init.el=) to include a call to ~mpdel-embark-setup~:
+
+#+begin_src emacs-lisp
+  (mpdel-embark-setup)
+#+end_src
+
+If you use ~use-package~, you might want to add some code looking like
+this instead:
+
+#+begin_src emacs-lisp
+  (use-package mpdel-embark
+    :demand t
+    :after (embark mpdel)
+    :config
+    (progn
+      (mpdel-embark-setup)))
+#+end_src
 
 ** License
 
-See [[file:COPYING][COPYING]]. Copyright (c) 2022 [[mailto:damien@cassou.me][Damien Cassou]].
+See [[file:COPYING][COPYING]]. Copyright (c) 2022-2023 [[mailto:damien@cassou.me][Damien Cassou]].
