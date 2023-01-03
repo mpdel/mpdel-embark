@@ -5,8 +5,8 @@
 ;; Author: Damien Cassou <damien@cassou.me>
 ;; Keywords: multimedia
 ;; Url: https://github.com/mpdel/mpdel-embark
-;; Package-requires: ((emacs "26.1"))
-;; Version: 0.1.0
+;; Package-requires: ((emacs "26.1") (mpdel "2.0.0") (libmpdel "2.0.0") (embark "0.17"))
+;; Version: 0.2.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
