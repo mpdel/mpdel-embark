@@ -6,7 +6,7 @@
 ;; Keywords: multimedia
 ;; Url: https://github.com/mpdel/mpdel-embark
 ;; Package-requires: ((emacs "26.1") (mpdel "2.0.0") (libmpdel "2.0.0") (embark "0.17"))
-;; Version: 0.2.0
+;; Version: 0.3.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@
     mpdel-core-insert-current-playlist
     mpdel-core-replace-current-playlist
     mpdel-core-replace-stored-playlist)
-  "List of commands in `mpdel-core-map' to make available in embark.
+  "List of commands in variable `mpdel-core-map' to make available in embark.
 
 All commands in the list must use `mpdel-core-selected-entities'
 to get the currently-selected entities.")
@@ -47,7 +47,7 @@ to get the currently-selected entities.")
 
 ;;;###autoload
 (defun mpdel-embark-setup ()
-  "Configure embark to be used with mpdel."
+  "Configure embark to be used with MPDel."
   (interactive)
 
   (define-key mpdel-core-map (kbd "i") #'mpdel-embark-list)
@@ -99,12 +99,12 @@ type of the listed candidates, e.g., `libmpdel-song'.")
   'libmpdel-song)
 
 (cl-defun mpdel-embark--fake-selected-entities (&rest rest &key run target type &allow-other-keys)
-  "Execute RUN with selected mpdel entities set to TARGET.
+  "Execute RUN with selected MPDel entities set to TARGET.
 The REST of the arguments and TYPE are passed to RUN.
 Used as value for `embark-around-action-hooks'.
 
-TARGET is a mpdel entity.  RUN is a function ultimately executing
-one of the libmpdel commands in `mpdel-embark--commands'."
+TARGET is a MPDel entity.  RUN is a function ultimately executing
+one of the MPDel commands in `mpdel-embark--commands'."
   (cl-letf (((symbol-function 'mpdel-core-selected-entities)
              (lambda () (list target))))
     (apply run :target target :type type rest)))
@@ -115,7 +115,7 @@ Used as value for `embark-transformer-alist'.
 
 TYPE is a completion category such as \"libmpdel-album\".  TARGET
 is either a string completion candidate with a
-\\='libmpdel-entity text property or a mpdel entity."
+\\='libmpdel-entity text property or a MPDel entity."
   (cons type (if (stringp target)
                  (get-text-property 0 'libmpdel-entity target)
                target)))
@@ -129,10 +129,12 @@ is either a string completion candidate with a
          (define-key map (vector key) command)))
      mpdel-core-map)
     map)
-  "Embark keymap for mpdel.
+  "Embark keymap for MPDel.
 
 The keymap includes all commands of `mpdel-embark--commands' with
-the same bindings as in `mpdel-core-map'.")
+the same bindings as in variable `mpdel-core-map'.")
 
 (provide 'mpdel-embark)
 ;;; mpdel-embark.el ends here
+
+;; LocalWords:  minibuffer MPDel keymap
